@@ -1,0 +1,8 @@
+{% extends 'base.html' %} {% block title %}Users{% endblock %} {% block content %}
+<h1>Users</h1>
+<!-- Loop through users and display their information -->
+{% for user in users %}
+<p>Name: {{ user.name }}</p>
+<p>Phone Number: {{ user.phone_number }}</p>
+<!-- Add more fields as needed -->
+{% endfor %} {% endblock %}

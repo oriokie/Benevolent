@@ -1,0 +1,7 @@
+{% extends 'base.html' %} {% block title %}Cases{% endblock %} {% block content %}
+<h1>Cases</h1>
+<!-- Loop through cases and display their information -->
+{% for case in cases %}
+<p>Case Number: {{ case.case_number }}</p>
+<!-- Add more fields as needed -->
+{% endfor %} {% endblock %}

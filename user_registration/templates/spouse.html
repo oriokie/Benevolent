@@ -1,0 +1,7 @@
+{% extends 'base.html' %} {% block title %}Spouses{% endblock %} {% block content %}
+<h1>Spouses</h1>
+<!-- Loop through spouses and display their information -->
+{% for spouse in spouses %}
+<p>Name: {{ spouse.name }}</p>
+<!-- Add more fields as needed -->
+{% endfor %} {% endblock %}

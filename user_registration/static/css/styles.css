@@ -1,0 +1,21 @@
+/* styles.css */
+
+/* Define styles for the header */
+header {
+  background-color: #333;
+  color: #fff;
+  padding: 10px;
+}
+
+/* Define styles for the main content */
+main {
+  margin: 20px;
+}
+
+/* Define styles for links */
+a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+/* Add more styles as needed */

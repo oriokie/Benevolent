@@ -1,4 +1,5 @@
 import os
+
 """
 Django settings for benevolent_app project.
 
@@ -132,3 +133,11 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# settings.py
+AUTHENTICATION_BACKENDS = [
+    'user_registration.backends.CustomAuthenticationBackend',
+    'django.contrib.auth.backends.ModelBackend',
+]
+AUTH_USER_MODEL = 'user_registration.User'
+

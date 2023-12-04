@@ -1,6 +1,9 @@
 from django import forms
 from .models import User, Spouse, Dependant, Payment, Case
 from .utils import get_members_and_dependants
+from django.contrib.auth import authenticate, login
+from django.shortcuts import render, redirect
+
 
 class UserForm(forms.ModelForm):
     class Meta:

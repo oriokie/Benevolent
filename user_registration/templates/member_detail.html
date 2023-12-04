@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Member Detail</h1>
+  <table>
+    <tbody>
+      <tr>
+        <th>Name:</th>
+        <td>{{ member.name }}</td>
+      </tr>
+      <tr>
+        <th>Phone Number:</th>
+        <td>{{ member.phone_number }}</td>
+      </tr>
+      <tr>
+        <th>ID Number:</th>
+        <td>{{ member.id_number }}</td>
+      </tr>
+      <tr>
+        <th>Username:</th>
+        <td>{{ member.username }}</td>
+      </tr>
+      <tr>
+        <th>Email:</th>
+        <td>{{ member.email }}</td>
+      </tr>
+      <tr>
+        <th>Age:</th>
+        <td>{{ member.age }}</td>
+      </tr>
+      <tr>
+        <th>Is Deceased:</th>
+        <td>{{ member.is_deceased }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Spouse Table -->
+  <h2>Spouse</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Phone Number</th>
+        <th>ID Number</th>
+        <th>Age</th>
+        <th>Is Deceased</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for spouse in member.spouses.all %}
+        <tr>
+          <td>{{ spouse.name }}</td>
+          <td>{{ spouse.phone_number }}</td>
+          <td>{{ spouse.id_number }}</td>
+          <td>{{ spouse.age }}</td>
+          <td>{{ spouse.is_deceased }}</td>
+        </tr>
+      {% empty %}
+        <tr>
+          <td colspan="5">No spouse information available.</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <!-- Dependants Table -->
+  <h2>Dependants</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Phone Number</th>
+        <th>Relationship</th>
+        <th>Age</th>
+        <th>Is Deceased</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for dependant in member.dependant.all %}
+        <tr>
+          <td>{{ dependant.name }}</td>
+          <td>{{ dependant.phone_number }}</td>
+          <td>{{ dependant.relationship }}</td>
+          <td>{{ dependant.age }}</td>
+          <td>{{ dependant.is_deceased }}</td>
+        </tr>
+      {% empty %}
+        <tr>
+          <td colspan="5">No dependants information available.</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <!-- You can add more member details or functionality here as needed -->
+
+  <a href="{% url 'edit_member' member.pk %}">Edit Member</a>
+  <a href="{% url 'delete_member' member.pk %}">Delete Member</a>
+  <a href="{% url 'member_list' %}">Back to Member List</a>
+</div>
+{% endblock %}

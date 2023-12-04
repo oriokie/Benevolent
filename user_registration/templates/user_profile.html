@@ -1,0 +1,20 @@
+<!-- registration/user_profile.html -->
+{% extends 'base.html' %} {% block content %}
+<h2>User Profile</h2>
+<h3>User Details</h3>
+<p>Username: {{ user.username }}</p>
+<p>Email: {{ user.email }}</p>
+
+<h3>Spouse Details</h3>
+{% if spouse %}
+<p>Name: {{ spouse.name }}</p>
+<!-- Display other spouse details here -->
+{% else %}
+<p>No spouse information available.</p>
+{% endif %}
+
+<h3>Dependants</h3>
+{% for dependant in dependants %}
+<p>Name: {{ dependant.name }}</p>
+<!-- Display other dependant details here -->
+{% endfor %} {% endblock %}

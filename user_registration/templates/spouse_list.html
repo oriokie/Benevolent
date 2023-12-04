@@ -1,0 +1,12 @@
+{% extends "base.html" %} {% block content %}
+<h1>Spouse Detail</h1>
+<p><strong>Name:</strong> {{ spouse.name }}</p>
+<p><strong>Phone Number:</strong> {{ spouse.phone_number }}</p>
+<p><strong>ID Number:</strong> {{ spouse.id_number }}</p>
+<p><strong>Age:</strong> {{ spouse.age }}</p>
+<p><strong>Is Deceased:</strong> {{ spouse.is_deceased }}</p>
+
+<!-- You can add more spouse details here as needed -->
+
+<a href="{% url 'spouse_list' %}">Back to Spouse List</a>
+{% endblock %}

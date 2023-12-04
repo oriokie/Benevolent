@@ -1,6 +1,6 @@
 from django.urls import include, path
 from rest_framework.routers import DefaultRouter
-from .views import UserViewSet, SpouseViewSet, DependantViewSet, PaymentViewSet, CaseViewSet
+from .views import UserViewSet, SpouseViewSet, DependantViewSet, PaymentViewSet, CaseViewSet, CustomLoginView, MemberDetailView
 from .import views
 
 router = DefaultRouter()
@@ -17,5 +17,9 @@ urlpatterns = [
     path('dependants/', views.dependant_list, name='dependant_list'),
     path('payments/', views.payment_list, name='payment_list'),
     path('cases/', views.case_list, name='case_list'),
-    path('add_user/', views.add_user, name='add_user'),
+    path('login/', CustomLoginView.as_view(), name='login'),
+    path('member_detail/<int:pk>/', views.member_detail, name='member_detail'),
+    path('member_detail/', views.member_detail, name='member_detail_no_pk'),
+    path('spouse/<int:pk>/', views.spouse_detail, name='spouse_detail'),
+    path('dependant/', views.dependant_list, name='dependant_list'),
 ]

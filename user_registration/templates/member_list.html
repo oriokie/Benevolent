@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Member List</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Phone Number</th>
+        <th>ID Number</th>
+        <th>Username</th>
+        <th>Email</th>
+        <th>Age</th>
+        <th>Is Deceased</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for member in members %}
+        <tr>
+          <td>{{ member.name }}</td>
+          <td>{{ member.phone_number }}</td>
+          <td>{{ member.id_number }}</td>
+          <td>{{ member.username }}</td>
+          <td>{{ member.email }}</td>
+          <td>{{ member.age }}</td>
+          <td>{{ member.is_deceased }}</td>
+          <td>
+            <a href="{% url 'member_detail' member.pk %}">View Details</a>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <!-- You can add more member details or functionality here as needed -->
+
+  <a href="{% url 'add_member' %}">Add Member</a>
+</div>
+{% endblock %}

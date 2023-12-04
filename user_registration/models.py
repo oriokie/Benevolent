@@ -1,15 +1,42 @@
 from django.db import models
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
+from django.db import models
+from django.contrib.auth.hashers import make_password
 
-#Registering the principal benevolent member
+class CustomUserManager(BaseUserManager):
+    def create_user(self, username, id_number, **extra_fields):
+        if not username:
+            raise ValueError('The Username must be set')
+        
+        # Hash the id_number to use it as the password
+        password = id_number
+        user = self.model(username=username, **extra_fields)
+        user.set_password(password)
+        user.save(using=self._db)
+        return user
 
-class User(models.Model):
+    def create_superuser(self, username, id_number, **extra_fields):
+        extra_fields.setdefault('is_staff', True)
+        extra_fields.setdefault('is_superuser', True)
+        
+        return self.create_user(username, id_number, **extra_fields)
+
+
+class User(AbstractBaseUser, PermissionsMixin):
+    username = models.CharField(max_length=50, unique=True)
+    id_number = models.CharField(max_length=10)
+    email = models.EmailField()
     name = models.CharField(max_length=100)
     phone_number = models.CharField(max_length=10)
-    id_number = models.CharField(max_length=10)
-    username = models.CharField(max_length=50)
-    email = models.EmailField()
-    age = models.IntegerField()
+    age = models.IntegerField(default=1)
     is_deceased = models.BooleanField(default=False)
+    is_staff = models.BooleanField(default=True)
+    is_superuser = models.BooleanField(default=True)
+
+    USERNAME_FIELD = 'username'
+    REQUIRED_FIELDS = ['id_number']
+
+    objects = CustomUserManager()
 
     def __str__(self):
         return self.username
@@ -51,10 +78,6 @@ class Dependant(models.Model):
 
 #model for tracking payments and contributions
 
-    
-from django.db import models
-from .utils import get_members_and_dependants
-
 class Case(models.Model):
     case_number = models.CharField(max_length=20, unique=True)
     deceased_member_name = models.CharField(max_length=100)  # Name of the deceased member
@@ -89,4 +112,3 @@ class Payment(models.Model):
 
     def __str__(self):
         return f"{self.user.name} - {'Registration' if self.is_registration else 'Contribution'}"
-

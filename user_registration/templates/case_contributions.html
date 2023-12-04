@@ -1,0 +1,23 @@
+<!-- registration/case_contributions.html -->
+{% extends 'base.html' %} {% block content %}
+<h2>Case Contributions</h2>
+{% if contributions %}
+<table>
+  <thead>
+    <tr>
+      <th>Case Number</th>
+      <th>Amount</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for contribution in contributions %}
+    <tr>
+      <td>{{ contribution.case.case_number }}</td>
+      <td>${{ contribution.amount }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% else %}
+<p>No case contributions found.</p>
+{% endif %} {% endblock %}

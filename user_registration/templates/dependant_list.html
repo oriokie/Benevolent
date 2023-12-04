@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Dependant List</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Phone Number</th>
+        <th>Relationship</th>
+        <th>Age</th>
+        <th>Is Deceased</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for dependant in dependants %}
+        <tr>
+          <td>{{ dependant.name }}</td>
+          <td>{{ dependant.phone_number }}</td>
+          <td>{{ dependant.get_relationship_display }}</td> <!-- Display the human-readable relationship name -->
+          <td>{{ dependant.age }}</td>
+          <td>{{ dependant.is_deceased }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <!-- You can add more dependant details or functionality here as needed -->
+
+  <a href="{% url 'member_detail' member.pk %}">Back to Member Detail</a>
+</div>
+{% endblock %}

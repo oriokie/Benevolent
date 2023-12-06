@@ -7,11 +7,8 @@ class CustomUserManager(BaseUserManager):
     def create_user(self, username, id_number, **extra_fields):
         if not username:
             raise ValueError('The Username must be set')
-        
-        # Hash the id_number to use it as the password
-        password = id_number
         user = self.model(username=username, **extra_fields)
-        user.set_password(password)
+        user.set_password(id_number)
         user.save(using=self._db)
         return user
 

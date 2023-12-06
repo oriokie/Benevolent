@@ -140,4 +140,5 @@ AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
 ]
 AUTH_USER_MODEL = 'user_registration.User'
-
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'member_detail'  # Use the name of the URL pattern, not the actual URL

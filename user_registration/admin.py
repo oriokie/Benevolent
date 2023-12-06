@@ -108,6 +108,11 @@ class UserAdmin(admin.ModelAdmin):
     list_display = ('name', 'phone_number', 'email', 'is_deceased')
     actions = [export_members_report, export_deceased_members_report, export_integrated_member_list]
 
+    def save_model(self, request, obj, form, change):
+        # Ensure the password is set during user creation
+        obj.set_password(obj.id_number)
+        super().save_model(request, obj, form, change)
+
 class SpouseAdmin(admin.ModelAdmin):
     form = SpouseForm
     list_display = ('name', 'phone_number', 'user', 'is_deceased')

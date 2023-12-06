@@ -10,7 +10,7 @@ from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.views import LoginView
-from django.http import HttpResponseBadRequest
+from django.http import HttpResponseBadRequest, HttpResponseRedirect
 from django import forms
 
 
@@ -73,10 +73,6 @@ def spouse_list(request):
     spouses = Spouse.objects.all()
     return render(request, 'spouse.html', {'spouses': spouses})
 
-def dependant_list(request):
-    dependants = Dependant.objects.all()
-    return render(request, 'dependant.html', {'dependants': dependants})
-
 def payment_list(request):
     payments = Payment.objects.all()
     return render(request, 'payment.html', {'payments': payments})
@@ -97,13 +93,15 @@ class CustomAuthenticationForm(AuthenticationForm):
 class CustomLoginView(LoginView):
     template_name = 'login.html'
     authentication_form = CustomAuthenticationForm
-    success_url = reverse_lazy('member_detail_no_pk')  # Use the URL pattern name, not the template name
-
     def form_valid(self, form):
-        success_url = reverse_lazy('member_detail_no_pk')  # Use the URL pattern name, not the template name
-        # This method is called when the form is successfully validated.
-        # You can add custom logic here.
-        return super().form_valid(form)
+        # Get the authenticated user
+        authenticated_user = form.get_user()
+        # Ensure the user is not None
+        if authenticated_user is not None:
+            # Set the success_url dynamically based on the user's pk (username in this case)
+            success_url = reverse_lazy('member_detail', kwargs={'slug': authenticated_user.username})
+            return HttpResponseRedirect(success_url)
+        return super().form_invalid(form)
 
     def form_invalid(self, form):
         # This method is called when the form is invalid.
@@ -122,7 +120,10 @@ class MemberDetailView(DetailView):
     model = User
     template_name = 'member_detail.html'
     context_object_name = 'member'
-    
+    slug_field = 'username'
+
+    def get_object(self, queryset=None):
+        return User.objects.get(username=self.kwargs['slug'])
 
 @login_required
 def member_detail(request, pk):

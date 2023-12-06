@@ -18,8 +18,7 @@ urlpatterns = [
     path('payments/', views.payment_list, name='payment_list'),
     path('cases/', views.case_list, name='case_list'),
     path('login/', CustomLoginView.as_view(), name='login'),
-    path('member_detail/<int:pk>/', views.member_detail, name='member_detail'),
-    path('member_detail/', views.member_detail, name='member_detail_no_pk'),
+    path('member_detail/<slug:slug>/', MemberDetailView.as_view(), name='member_detail'),
     path('spouse/<int:pk>/', views.spouse_detail, name='spouse_detail'),
     path('dependant/', views.dependant_list, name='dependant_list'),
 ]
